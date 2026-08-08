@@ -1,5 +1,6 @@
 ---
 name: wiki-llm
+version: "1.0.0"
 description: "Maintain a personal Obsidian knowledge base using the wiki-llm pattern — LLM writes, human reads. Use for ingesting sources, answering queries against the vault, linting for consistency, and processing inbox items."
 ---
 

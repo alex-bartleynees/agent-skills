@@ -1,5 +1,6 @@
 ---
 name: gws-drive-auth
+version: "1.0.0"
 description: "Auth rules for gws Calendar vs Drive commands. Use whenever running gws calendar or gws drive."
 allowed-tools: shell_execute
 ---

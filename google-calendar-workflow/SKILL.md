@@ -1,5 +1,6 @@
 ---
 name: google-calendar-workflow
+version: "1.0.0"
 description: "Use this when working with Alex's Google Calendar via gws, especially for the Auckland move project. Verifies direct calendar access, uses known calendar IDs, and creates or adjusts milestone/reminder events safely."
 allowed-tools: shell_execute file_read
 ---
