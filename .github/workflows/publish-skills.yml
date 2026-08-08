@@ -33,4 +33,6 @@ jobs:
         env:
           SKILLSERVER_URL: https://skills.alexbartleynees.com
           SKILLSERVER_API_KEY: ${{ secrets.SKILLSERVER_APIKEY }}
-        run: skillserver publish-all .
+        run: |
+          skillserver publish-all .
+          skillserver publish-all ./external
