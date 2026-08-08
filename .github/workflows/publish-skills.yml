@@ -1,0 +1,36 @@
+name: Publish skills
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**/SKILL.md"
+      - "**/scripts/**"
+      - "**/references/**"
+      - "**/assets/**"
+  workflow_dispatch: {}
+
+concurrency:
+  group: publish-skills
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Install skillserver CLI
+        run: |
+          dotnet tool install --global Netclaw.SkillServer.Cli
+          echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+
+      - name: Publish all skills
+        env:
+          SKILLSERVER_URL: https://skills.alexbartleynees.com
+          SKILLSERVER_API_KEY: ${{ secrets.SKILLSERVER_APIKEY }}
+        run: skillserver publish-all .
