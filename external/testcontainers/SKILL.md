@@ -21,8 +21,8 @@ Use this skill when:
 
 ## Reference Files
 
-- [database-patterns.md](database-patterns.md): SQL Server, PostgreSQL, and migration testing examples
-- [infrastructure-patterns.md](infrastructure-patterns.md): Redis, RabbitMQ, multi-container networks, container reuse, and Respawn
+- [database-patterns.md](references/database-patterns.md): SQL Server, PostgreSQL, and migration testing examples
+- [infrastructure-patterns.md](references/infrastructure-patterns.md): Redis, RabbitMQ, multi-container networks, container reuse, and Respawn
 
 ## Core Principles
 
@@ -111,9 +111,9 @@ public class OrderRepositoryTests : IAsyncLifetime
 }
 ```
 
-See [database-patterns.md](database-patterns.md) for complete SQL Server, PostgreSQL, and migration testing examples.
+See [database-patterns.md](references/database-patterns.md) for complete SQL Server, PostgreSQL, and migration testing examples.
 
-See [infrastructure-patterns.md](infrastructure-patterns.md) for Redis, RabbitMQ, multi-container networks, container reuse, and Respawn database reset patterns.
+See [infrastructure-patterns.md](references/infrastructure-patterns.md) for Redis, RabbitMQ, multi-container networks, container reuse, and Respawn database reset patterns.
 
 ## Required NuGet Packages
 

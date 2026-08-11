@@ -108,7 +108,7 @@ Enable NRT for new code:
 
 For legacy codebases, enable incrementally with file-level directives (`#nullable enable`, `#nullable disable`, `#nullable enable warnings`, `#nullable enable annotations`). Treat `CS86xx` nullable warnings as important; consider `TreatWarningsAsErrors` or treating nullable warnings as errors in new projects.
 
-See [nrt-migration-playbook-reference.md](nrt-migration-playbook-reference.md) for the full incremental-adoption strategy, `#nullable` directive reference, legacy interop, and known static-analysis limitations (arrays, `default(struct)`).
+See [nrt-migration-playbook-reference.md](references/nrt-migration-playbook-reference.md) for the full incremental-adoption strategy, `#nullable` directive reference, legacy interop, and known static-analysis limitations (arrays, `default(struct)`).
 
 ## API Design Rules (Signatures)
 
@@ -144,7 +144,7 @@ public class Order
 }
 ```
 
-When contracts depend on input/output behavior, conditional behavior, or member initialization, apply the nullable attributes described in [nullable-attributes-reference.md](nullable-attributes-reference.md).
+When contracts depend on input/output behavior, conditional behavior, or member initialization, apply the nullable attributes described in [nullable-attributes-reference.md](references/nullable-attributes-reference.md).
 
 ### Public API compatibility for libraries
 
@@ -171,12 +171,12 @@ public class C
 }
 ```
 
-See [nullable-attributes-reference.md](nullable-attributes-reference.md) for the full `field` nullability rules (null-resilient vs non-resilient getters, the `[field: AllowNull, MaybeNull]` escape hatch, and setter/constructor analysis).
+See [nullable-attributes-reference.md](references/nullable-attributes-reference.md) for the full `field` nullability rules (null-resilient vs non-resilient getters, the `[field: AllowNull, MaybeNull]` escape hatch, and setter/constructor analysis).
 
 ## Reference Files
 
-- [nullable-attributes-reference.md](nullable-attributes-reference.md): The complete `System.Diagnostics.CodeAnalysis` attribute catalog — preconditions (`AllowNull`, `DisallowNull`), postconditions (`MaybeNull`, `NotNull`), conditional postconditions (`NotNullWhen`, `MaybeNullWhen`, `NotNullIfNotNull`), helper methods (`MemberNotNull`, `MemberNotNullWhen`), unreachable-code helpers (`DoesNotReturn`, `DoesNotReturnIf`), and the `field` keyword nullability rules. Each with intent, pattern, and agent rules.
-- [nrt-migration-playbook-reference.md](nrt-migration-playbook-reference.md): Incremental adoption strategy, `#nullable` directive reference, legacy/unannotated API interop, polyfilling nullable attributes for older target frameworks (with tradeoffs and a confirm-before-adding decision process), known static-analysis limitations (arrays of non-nullable references, `default(struct)` with reference fields), warning handling, and the full generation checklist.
+- [nullable-attributes-reference.md](references/nullable-attributes-reference.md): The complete `System.Diagnostics.CodeAnalysis` attribute catalog — preconditions (`AllowNull`, `DisallowNull`), postconditions (`MaybeNull`, `NotNull`), conditional postconditions (`NotNullWhen`, `MaybeNullWhen`, `NotNullIfNotNull`), helper methods (`MemberNotNull`, `MemberNotNullWhen`), unreachable-code helpers (`DoesNotReturn`, `DoesNotReturnIf`), and the `field` keyword nullability rules. Each with intent, pattern, and agent rules.
+- [nrt-migration-playbook-reference.md](references/nrt-migration-playbook-reference.md): Incremental adoption strategy, `#nullable` directive reference, legacy/unannotated API interop, polyfilling nullable attributes for older target frameworks (with tradeoffs and a confirm-before-adding decision process), known static-analysis limitations (arrays of non-nullable references, `default(struct)` with reference fields), warning handling, and the full generation checklist.
 
 ## Generation Checklist (Summary)
 

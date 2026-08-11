@@ -19,7 +19,7 @@ Use this skill when:
 
 ## Reference Files
 
-- [advanced-concurrency.md](advanced-concurrency.md): Akka.NET Streams, Reactive Extensions, Akka.NET Actors (entity-per-actor, state machines, cluster sharding), and async local function patterns
+- [advanced-concurrency.md](references/advanced-concurrency.md): Akka.NET Streams, Reactive Extensions, Akka.NET Actors (entity-per-actor, state machines, cluster sharding), and async local function patterns
 
 ## The Philosophy
 
@@ -178,7 +178,7 @@ public class OrderProcessor
 
 ## Level 4+: Akka.NET Streams, Reactive Extensions, Actors
 
-For advanced scenarios requiring stream processing, UI event composition, or stateful entity management, see [advanced-concurrency.md](advanced-concurrency.md).
+For advanced scenarios requiring stream processing, UI event composition, or stateful entity management, see [advanced-concurrency.md](references/advanced-concurrency.md).
 
 **Akka.NET Streams** excel at server-side batching, throttling, and backpressure. **Reactive Extensions** are ideal for UI event composition. **Akka.NET Actors** handle entity-per-actor patterns, state machines with `Become()`, and distributed systems via Cluster Sharding.
 

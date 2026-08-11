@@ -19,7 +19,7 @@ Use this skill when:
 
 ## Reference Files
 
-- [advanced-patterns.md](advanced-patterns.md): Validators with dependencies, named options, complete production example (AkkaSettings), and testing validators
+- [advanced-patterns.md](references/advanced-patterns.md): Validators with dependencies, named options, complete production example (AkkaSettings), and testing validators
 
 ## Why Configuration Validation Matters
 
@@ -193,7 +193,7 @@ builder.Services.AddSingleton<IValidateOptions<SmtpSettings>, SmtpSettingsValida
 
 **Order matters:** Data Annotations run first, then IValidateOptions validators. All failures are collected together.
 
-See [advanced-patterns.md](advanced-patterns.md) for validators with dependencies, named options, and a complete production example.
+See [advanced-patterns.md](references/advanced-patterns.md) for validators with dependencies, named options, and a complete production example.
 
 ---
 

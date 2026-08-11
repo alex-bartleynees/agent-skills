@@ -69,11 +69,11 @@ composition root (not in libraries):
 **Library authors**: Add **nothing**. Use only `System.Diagnostics.*` and `ILogger`.
 The consuming application wires up the SDK and exporters.
 
-**Application authors**: Add `OpenTelemetry.Extensions.Hosting` + the exporters and instrumentation libraries you need. See [sdk-resources-and-logs-reference.md](sdk-resources-and-logs-reference.md) for full setup patterns.
+**Application authors**: Add `OpenTelemetry.Extensions.Hosting` + the exporters and instrumentation libraries you need. See [sdk-resources-and-logs-reference.md](references/sdk-resources-and-logs-reference.md) for full setup patterns.
 
 **Never add** `OpenTelemetry.Api` to a library — `System.Diagnostics.*` IS the API.
 
-For SDK setup, resource configuration, exporters, sampling, and logs integration, see [sdk-resources-and-logs-reference.md](sdk-resources-and-logs-reference.md).
+For SDK setup, resource configuration, exporters, sampling, and logs integration, see [sdk-resources-and-logs-reference.md](references/sdk-resources-and-logs-reference.md).
 
 ## Core Principles
 
@@ -183,7 +183,7 @@ Choose the correct `ActivityKind` to clarify the span's role in distributed trac
 **Rules**:
 - A single span SHOULD NOT serve more than one purpose
 - Create the outgoing span **before** injecting its `SpanContext` into the request. If you inject first, the parent's context propagates instead and the outgoing span ends up dangling (no connection to the downstream call).
-- See [traces-and-propagation-reference.md](traces-and-propagation-reference.md) for detailed SpanKind guidance with examples
+- See [traces-and-propagation-reference.md](references/traces-and-propagation-reference.md) for detailed SpanKind guidance with examples
 
 ### Span Attributes (Tags)
 
@@ -282,7 +282,7 @@ catch (Exception ex)
 - The log call **MUST** happen while the span it's associated with is still current — the spec requires "exception events emitted by instrumentations that also record spans for the same operation MUST be associated with the corresponding span context." Logging from a detached error-reporting callback after the `using` activity scope has ended silently correlates to the wrong span, or none. See [Accessing Activities](#accessing-activities) below.
 - Only move to `logs`-only once you've held dual-emission for at least six months on a stable major version (the spec's own minimum) **and** confirmed your actual consumers read log-based exceptions — not on a fixed timeline alone.
 
-See [traces-and-propagation-reference](traces-and-propagation-reference.md) for the full pattern, including how a library with no logging dependency in its core can still expose a callback so a separate OTel integration package can capture exception details while the right span is active.
+See [traces-and-propagation-reference](references/traces-and-propagation-reference.md) for the full pattern, including how a library with no logging dependency in its core can still expose a callback so a separate OTel integration package can capture exception details while the right span is active.
 
 ### Accessing Activities
 
@@ -308,13 +308,13 @@ var activity = ActivitySource.StartActivity(
     ActivityKind.Internal, name: "batch-process", links: links);
 ```
 
-See [traces-and-propagation-reference.md](traces-and-propagation-reference.md) for full link patterns including batch processing, scatter/gather, and trace boundary crossing.
+See [traces-and-propagation-reference.md](references/traces-and-propagation-reference.md) for full link patterns including batch processing, scatter/gather, and trace boundary crossing.
 
 ### Context Propagation
 
 Distributed tracing requires propagating trace context across process boundaries (HTTP calls, message queues, etc.) using W3C `traceparent` headers. In .NET, this is handled by `DistributedContextPropagator`. The OTel SDK configures W3C TraceContext propagation by default.
 
-See [traces-and-propagation-reference.md](traces-and-propagation-reference.md) for propagation patterns, custom propagators, and manual inject/extract for non-standard transports.
+See [traces-and-propagation-reference.md](references/traces-and-propagation-reference.md) for propagation patterns, custom propagators, and manual inject/extract for non-standard transports.
 
 ## Metrics
 
@@ -352,7 +352,7 @@ public sealed class OrderProcessingMetrics : IDisposable
 | **ObservableGauge** | `CreateObservableGauge<T>` | Async callback, non-monotonic | CPU/memory usage |
 | **ObservableUpDownCounter** | `CreateObservableUpDownCounter<T>` | Async callback, bi-directional | Active tasks by priority |
 
-See [metrics-and-instruments-reference.md](metrics-and-instruments-reference.md) for full creation/recording examples and observable callback patterns.
+See [metrics-and-instruments-reference.md](references/metrics-and-instruments-reference.md) for full creation/recording examples and observable callback patterns.
 
 ### Metric Recording Method Naming
 
@@ -491,13 +491,13 @@ private readonly Meter meter = new("MyApp.MyComponent", "0.8.0");
 
 .NET logs integrate with OpenTelemetry through the built-in `ILogger` API. The OTel SDK provides `AddOpenTelemetry()` on the logging builder to collect, process, and export logs. Log records are automatically correlated with traces via `TraceId`/`SpanId`.
 
-See [sdk-resources-and-logs-reference.md](sdk-resources-and-logs-reference.md) for full logs integration patterns including correlation, redaction, structured logging, and severity filtering.
+See [sdk-resources-and-logs-reference.md](references/sdk-resources-and-logs-reference.md) for full logs integration patterns including correlation, redaction, structured logging, and severity filtering.
 
 ## Reference Files
 
-- [traces-and-propagation-reference.md](traces-and-propagation-reference.md): SpanKind deep dive with examples, Span Links (batch, scatter/gather, trace boundary), Context Propagation (W3C traceparent, DistributedContextPropagator, custom propagators), Baggage, and the full modern exception recording pattern.
-- [metrics-and-instruments-reference.md](metrics-and-instruments-reference.md): All 7 metric instrument types with creation/recording code and when-to-use guidance, observable instrument callback patterns, dimensions deep dive, exemplars, aggregation defaults, and units.
-- [sdk-resources-and-logs-reference.md](sdk-resources-and-logs-reference.md): SDK initialization (ASP.NET Core + Console), Resource configuration (ResourceBuilder, AddService, AddDetector, custom detectors), Exporters (OTLP, Console, Jaeger, Zipkin, Prometheus), Instrumentation Libraries, Sampling (built-in, custom, env vars, head/tail-based), Logs integration (ILogger, correlation, redaction, structured logging), and environment variable configuration.
+- [traces-and-propagation-reference.md](references/traces-and-propagation-reference.md): SpanKind deep dive with examples, Span Links (batch, scatter/gather, trace boundary), Context Propagation (W3C traceparent, DistributedContextPropagator, custom propagators), Baggage, and the full modern exception recording pattern.
+- [metrics-and-instruments-reference.md](references/metrics-and-instruments-reference.md): All 7 metric instrument types with creation/recording code and when-to-use guidance, observable instrument callback patterns, dimensions deep dive, exemplars, aggregation defaults, and units.
+- [sdk-resources-and-logs-reference.md](references/sdk-resources-and-logs-reference.md): SDK initialization (ASP.NET Core + Console), Resource configuration (ResourceBuilder, AddService, AddDetector, custom detectors), Exporters (OTLP, Console, Jaeger, Zipkin, Prometheus), Instrumentation Libraries, Sampling (built-in, custom, env vars, head/tail-based), Logs integration (ILogger, correlation, redaction, structured logging), and environment variable configuration.
 
 ## References
 

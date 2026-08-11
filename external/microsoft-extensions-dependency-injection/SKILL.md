@@ -18,7 +18,7 @@ Use this skill when:
 
 ## Reference Files
 
-- [advanced-patterns.md](advanced-patterns.md): Testing with DI extensions, Akka.NET actor scope management, conditional/factory/keyed registration patterns
+- [advanced-patterns.md](references/advanced-patterns.md): Testing with DI extensions, Akka.NET actor scope management, conditional/factory/keyed registration patterns
 
 ---
 
@@ -148,7 +148,7 @@ src/
 
 The `Add*` pattern lets you **reuse production configuration in tests** and only override what's different. Works with WebApplicationFactory, Akka.Hosting.TestKit, and standalone ServiceCollection.
 
-See [advanced-patterns.md](advanced-patterns.md) for complete testing examples.
+See [advanced-patterns.md](references/advanced-patterns.md) for complete testing examples.
 
 ---
 
@@ -287,7 +287,7 @@ services.AddTransient<CreateUserRequestValidator>();
 
 **Scoped services require a scope.** ASP.NET Core creates one per HTTP request. In background services and actors, create scopes manually.
 
-See [advanced-patterns.md](advanced-patterns.md) for actor scope management patterns.
+See [advanced-patterns.md](references/advanced-patterns.md) for actor scope management patterns.
 
 ---
 
