@@ -1,6 +1,6 @@
 ---
 name: manage-child-threads
-version: "1.0.0"
+version: "1.1.0"
 description: Coordinate a builder and independent reviewers through child app threads in wiki-agents. Use when a manager agent delegates implementation, reviews a shared working tree, or sends fixes back for focused re-review.
 ---
 
@@ -17,7 +17,8 @@ Use `thread_create` to start each assignment. Child app threads inherit the mana
 Give each child a title and include these details in its prompt.
 
 - **Role and outcome** — what to build, review, or verify.
-- **Scope and baseline** — workspace, relevant files, spec sources, and the exact comparison point if reviewing changes.
+- **Scope and baseline** — workspace, relevant files, acceptance criteria, explicit exclusions, and the exact comparison point for review. Ask the builder to use existing patterns and bring scope decisions to the manager.
+- **Review budget** — default to one independent review round and, if there are accepted blockers, one batched fix and focused re-review. State the budget in both assignments. A review round can include multiple review axes.
 - **Permissions** — whether the child may edit, run gates, stage, or commit, according to the user’s authorization.
 - **Report** — what evidence to return and what counts as completion.
 
@@ -33,8 +34,11 @@ Use `thread_list` to check status and the manager’s child results to receive c
 
 `thread_send` accepts a child only when it is idle and has no active subagents. A finished child can appear in `thread_list` as `done`, `failed`, or `stopped`. If the child or its subagents are still active, retain the follow-up and send it once the child is idle and its subagents have finished. When a child reports a blocking question, carry forward its role, decision context, and answer choices. Relay the user’s answer to the same child when it can receive the follow-up.
 
-## 3. Close the review loop
+## 3. Triage and close the review
 
-Send accepted findings to the builder with the behavior to fix and any regression the fix should cover. Once the builder reports the revised snapshot and verification results, use `thread_send` to return each finding to its original reviewer. Ask for closure against the revised code and a check of any behavior the fix could affect.
+1. Ask reviewers to check the change against the acceptance criteria and look for regressions it introduces. A proposed blocker needs the violated requirement or supported behavior, concrete evidence (a reproduction, failing check, or specific code path), and an explanation of how the change causes the failure. Record pre-existing issues, speculative concerns, and broader improvements as follow-ups.
+2. The manager resolves disagreements, deduplicates findings, and decides which evidenced findings block delivery. If no blockers are accepted, proceed to the completion checks. Otherwise, send one batch to the builder with the expected behavior and verification for each finding. Prefer proportionate fixes grounded in stable behavior. Get the user's approval for any fix that expands scope.
+3. After the builder returns the revised snapshot and verification, use `thread_send` to ask the original reviewers to verify their assigned fixes and check for regressions introduced by those fixes. Apply the same evidence standard to any new finding.
+4. When the budget is exhausted, report any remaining or newly introduced blocker with its evidence, impact, and the decision needed from the user. End the review cycle and get explicit approval before starting another fix/re-review round.
 
 Before reporting completion, confirm that required review findings are closed and required gates passed on the final snapshot. Complete any authorized delivery steps, such as committing. If a blocker remains, report the exact finding, gate, or delivery step and its status. Summarize what changed, the final verdict for each review axis, and the verification performed. Attribute builder-run gates and reviewer conclusions to their reports.
